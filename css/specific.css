@@ -74,8 +74,8 @@ img {
 
 }
 
-.left,
-.right {
+#left,
+#right {
 
     position: absolute;
     bottom: 4vh;
@@ -84,17 +84,18 @@ img {
     border-radius: 50%;
     background-color: grey;
     color: white;
+    cursor: pointer;
 
 
 }
 
-.left {
+#left {
 
     left: 2vh;
 
 }
 
-.right {
+#right {
 
     right: 2vh;
 

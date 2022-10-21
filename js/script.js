@@ -22,40 +22,124 @@ const images = [
     }
 ];
 
-
-
-
 const imageDisplayedDOM = document.getElementById("image-displayed");
 const thumbnailsDOM = document.getElementById("thumbnails");
+const leftDOM = document.getElementById("left");
+const rightDOM = document.getElementById("right");
 
-let result = "";
-let currentImage = 0;
+let imageIndex = 0;
 
-result =    `
-            <img class="fit-cover" src="${images[0].image}" alt="${images[0].title}">
-            <h1 class="main-title font-size-20">${images[0].title}</h1>
-            <p class="paragraph font-size-15">${images[0].text}</p>
-            `
+writeImageDisplayedDOM(imageIndex);
+writeThumbnailsDOM(images.length);
 
-imageDisplayedDOM.innerHTML = result;
+const arrayThumbnailsDOM = document.getElementsByClassName("inactive");
+arrayThumbnailsDOM[imageIndex].classList.add("active");
 
-console.log(result);
+leftDOM.addEventListener("click", displayImageLeft);
+rightDOM.addEventListener("click", displayImageRight);
 
-result = "";
+imageDisplayedDOM.addEventListener("click", displayImageRight);
 
-console.log(result);
+for(let i = 0; i < arrayThumbnailsDOM.length; i++) {
 
-for(let i = 0; i < images.length; i++) {
+    arrayThumbnailsDOM[i].addEventListener("click", () => {
+ 
+        removeActiveClass(imageIndex);
+        imageIndex = i;
+        writeImageDisplayedDOM(imageIndex);
+        addActiveClass(imageIndex);
 
-    result +=   `<div class="inactive col-20">
-
-                    <img class="little-image" src="${images[i].image}" alt="${images[i].title}">
-
-                </div>`
+    });
 
 }
 
-console.log(result);
+/**
+ * Description Funzione che scrive nel DOM l'immagine image-displayed con indice "index"
+ * @param {number} index - Indice dell'oggetto
+ * @returns {void}
+ */
+function writeImageDisplayedDOM(index) {
 
-thumbnailsDOM.innerHTML = result;
+    let result =    `
+                    <img class="fit-cover" src="${images[index].image}" alt="${images[index].title}">
+                    <h1 class="main-title font-size-20">${images[index].title}</h1>
+                    <p class="paragraph font-size-15">${images[index].text}</p>
+                    `;
 
+imageDisplayedDOM.innerHTML = "";
+imageDisplayedDOM.innerHTML = result;
+
+}
+
+/**
+ * Description Funzione che scrive nel DOM le thumbnail di "index" immagini.
+ * @param {number} index
+ * @returns {void}
+ */
+function writeThumbnailsDOM(index) {
+
+    let stringImageDisplayed = "";
+    
+    for(let i = 0; i < index; i++) {
+
+        stringImageDisplayed += `<div class="inactive col-20">
+    
+                                <img class="little-image" src="${images[i].image}" alt="${images[i].title}">
+    
+                                </div>`;
+    
+    }
+
+    thumbnailsDOM.innerHTML = "";
+    thumbnailsDOM.innerHTML = stringImageDisplayed;
+
+}
+
+/**
+ * Description Funzione che mostra la prossima immagine a sinistra, al click del pulsante left. Se non esiste, resetta
+ *              il contatore.
+ * @returns {void}
+ */
+function displayImageLeft() {
+
+    arrayThumbnailsDOM[imageIndex].classList.remove("active");
+    if(imageIndex <= 0 ) {imageIndex=images.length-1;}
+    else {imageIndex--;}
+    arrayThumbnailsDOM[imageIndex].classList.add("active");
+    writeImageDisplayedDOM(imageIndex);
+    
+}
+
+/**
+ * Description Funzione che mostra la prossima immagine a destra, al click del pulsante right. Se non esiste, resetta
+ *              il contatore.
+ * @returns {void}
+ */
+function displayImageRight() {
+
+    arrayThumbnailsDOM[imageIndex].classList.remove("active");
+    if(imageIndex >= images.length - 1) {imageIndex=0;}
+    else {imageIndex++;}
+    arrayThumbnailsDOM[imageIndex].classList.add("active");
+    writeImageDisplayedDOM(imageIndex);
+
+}
+
+
+function addActiveClass(index) {
+
+    arrayThumbnailsDOM[index].classList.add("active");
+
+}
+
+function removeActiveClass(index) {
+
+    arrayThumbnailsDOM[index].classList.remove("active");
+
+}
+
+setInterval(() => {
+
+    displayImageRight();
+    
+}, 2000);
