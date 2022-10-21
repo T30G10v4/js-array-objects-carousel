@@ -24,10 +24,12 @@ const images = [
 
 
 
-const thumbnailsDOM = document.getElementById("thumbnails");
-const imageDisplayedDOM = document.getElementById("image-displayed");
 
-let result;
+const imageDisplayedDOM = document.getElementById("image-displayed");
+const thumbnailsDOM = document.getElementById("thumbnails");
+
+let result = "";
+let currentImage = 0;
 
 result =    `
             <img class="fit-cover" src="${images[0].image}" alt="${images[0].title}">
