@@ -9,16 +9,94 @@
 }
 
 /*------COMMON PARTS------*/
+img {
+
+    display: block;
+
+}
+
 
 /*------SPECIFIED PARTS BY ID------*/
-.primo {
+#carousel {
 
-    background-color: var(--bg-color-primo);
+    height: 50vh;
+    position: relative;
+
+}
+
+
+
+.fit-cover {
+
+    object-fit: cover;
+    height: 40vh;
+    width: 100%;
+    
+}
+
+.little-image {
+
+    height: 10vh;
+    width: 100%;
+    object-fit: cover;
 
 }
 
-.secondo {
+.inactive {
 
-    background-color: var(--bg-color-secondo);
+    filter: blur(2px);
 
 }
+
+.inactive.active {
+
+    filter: none;
+
+}
+
+#carousel .main-title {
+
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+
+}
+
+#carousel .paragraph {
+
+    position: absolute;
+    top: 50px;
+    right: 10px;
+   
+    text-align: end;
+    color: white;
+
+}
+
+.left,
+.right {
+
+    position: absolute;
+    bottom: 4vh;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: grey;
+    color: white;
+
+
+}
+
+.left {
+
+    left: 2vh;
+
+}
+
+.right {
+
+    right: 2vh;
+
+}
+
