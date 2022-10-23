@@ -27,14 +27,14 @@ const thumbnailsDOM = document.getElementById("thumbnails");
 const leftDOM = document.getElementById("left");
 const rightDOM = document.getElementById("right");
 
+// Stato iniziale
 let imageIndex = 0;
-
 writeImageDisplayedDOM(imageIndex);
 writeThumbnailsDOM(images.length);
-
 const arrayThumbnailsDOM = document.getElementsByClassName("inactive");
-arrayThumbnailsDOM[imageIndex].classList.add("active");
+addActiveClass(imageIndex);
 
+// Quando clicco sullo slider... 
 leftDOM.addEventListener("click", displayImageLeft);
 rightDOM.addEventListener("click", displayImageRight);
 
@@ -52,6 +52,12 @@ for(let i = 0; i < arrayThumbnailsDOM.length; i++) {
     });
 
 }
+
+setInterval(() => {
+
+    displayImageRight();
+    
+}, 2000);
 
 /**
  * Description Funzione che scrive nel DOM l'immagine image-displayed con indice "index"
@@ -102,10 +108,10 @@ function writeThumbnailsDOM(index) {
  */
 function displayImageLeft() {
 
-    arrayThumbnailsDOM[imageIndex].classList.remove("active");
+    removeActiveClass(imageIndex);
     if(imageIndex <= 0 ) {imageIndex=images.length-1;}
     else {imageIndex--;}
-    arrayThumbnailsDOM[imageIndex].classList.add("active");
+    addActiveClass(imageIndex);
     writeImageDisplayedDOM(imageIndex);
     
 }
@@ -117,14 +123,13 @@ function displayImageLeft() {
  */
 function displayImageRight() {
 
-    arrayThumbnailsDOM[imageIndex].classList.remove("active");
+    removeActiveClass(imageIndex);
     if(imageIndex >= images.length - 1) {imageIndex=0;}
     else {imageIndex++;}
-    arrayThumbnailsDOM[imageIndex].classList.add("active");
+    addActiveClass(imageIndex);
     writeImageDisplayedDOM(imageIndex);
 
 }
-
 
 function addActiveClass(index) {
 
@@ -137,9 +142,3 @@ function removeActiveClass(index) {
     arrayThumbnailsDOM[index].classList.remove("active");
 
 }
-
-setInterval(() => {
-
-    displayImageRight();
-    
-}, 2000);
